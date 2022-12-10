@@ -1,4 +1,7 @@
-const display = (p5) => ({
+const display = (
+  /** @type {import("p5").p5InstanceExtensions} */
+  p5
+) => ({
   /* == MISC AND DEUBGGING == */
   arrow: (size) => {
     p5.beginShape();

@@ -1,4 +1,7 @@
-const input = (p5) => ({
+const input = (
+  /** @type {import("p5").p5InstanceExtensions} */
+  p5
+) => ({
   leftAndRight:
     (p5.keyIsDown(65) || p5.keyIsDown(p5.LEFT_ARROW)) &&
     (p5.keyIsDown(68) || p5.keyIsDown(p5.RIGHT_ARROW)),
