@@ -1,7 +1,8 @@
-import { display } from "./helper";
+import display from "./display";
 
 class Ship {
   static viewHitbox = false;
+  static viewEnginesOn = false;
 
   constructor(world) {
     this.world = world;
@@ -10,38 +11,46 @@ class Ship {
     this.size = 30;
 
     this.pos = this.p5.createVector();
+    this.vel = this.p5.createVector();
+    this.acc = this.p5.createVector();
+    this.dampening = 0.95;
+
     this.heading = 0;
     this.rotation = 0;
     this.rotateSpeed = 0.03;
+
+    this.enginesOn = false;
+  }
+
+  get boostForce() {
+    const a = this.heading;
+    return this.p5.createVector(Math.cos(a), Math.sin(a)).mult(0.01);
   }
 
   rotate(direction) {
     this.rotation = direction;
   }
 
+  applyForce(force) {
+    this.acc.add(force);
+  }
+
   update() {
+    if (this.enginesOn) this.applyForce(this.boostForce);
+    else this.speed *= this.dampening;
+
     this.heading += this.rotation * this.rotateSpeed;
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
 
     this.draw();
   }
 
   draw() {
-    this.p5.push();
-    this.p5.noStroke();
-    this.p5.fill("white");
+    display(this.p5).ship(this);
 
-    this.p5.translate(this.pos);
-    this.p5.rotate(this.heading + this.p5.HALF_PI);
-    display(this.p5).arrow(this.size);
-    this.p5.pop();
-
-    if (Ship.viewHitbox) {
-      this.p5.push();
-      this.p5.noFill();
-      this.p5.stroke("blue");
-      this.p5.circle(0, 0, this.size * 2);
-      this.p5.pop();
-    }
+    if (Ship.viewHitbox) display(this.p5).shipHitbox(this);
   }
 }
 

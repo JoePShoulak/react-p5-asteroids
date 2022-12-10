@@ -1,8 +1,20 @@
-import { input } from "./helper";
+import display from "./display";
+import input from "./input";
 import Ship from "./Ship";
 
 class World {
-  constructor(p5, width, height, { shipViewHitbox } = {}) {
+  constructor(
+    p5,
+    width,
+    height,
+    {
+      // Global
+      viewFrameRate,
+      // Ship
+      shipViewHitbox,
+      shipViewEnginesOn,
+    } = {}
+  ) {
     /** @type {import("p5").p5InstanceExtensions} */
     this.p5 = p5;
     this.width = width;
@@ -10,7 +22,11 @@ class World {
 
     this.ship = new Ship(this);
 
+    // World
+    this.viewFrameRate = viewFrameRate ?? false;
+    // Ship
     if (shipViewHitbox) Ship.viewHitbox = true;
+    if (shipViewEnginesOn) Ship.viewEnginesOn = true;
   }
 
   offscreen(obj) {
@@ -27,16 +43,26 @@ class World {
   }
 
   getInput() {
-    // Ship
+    /* == SHIP == */
+    // Turning
     this.ship.rotation = 0;
 
-    if (input(this.ship.p5).leftAndRight) return;
+    if (input(this.p5).leftAndRight) return;
 
-    if (input(this.ship.p5).left) this.ship.rotate(-1);
-    else if (input(this.ship.p5).right) this.ship.rotate(1);
+    if (input(this.p5).left) this.ship.rotate(-1);
+    else if (input(this.p5).right) this.ship.rotate(1);
+
+    // Engines
+    if (input(this.p5).forward) this.ship.enginesOn = true;
+    else this.ship.enginesOn = false;
   }
 
   update() {
+    if (this.viewFrameRate) display(this.p5).frameRate();
+    if (Ship.viewEnginesOn) display(this.p5).shipEnginesOn(this.ship);
+
+    this.p5.translate(this.p5.width / 2, this.p5.height / 2);
+
     this.ship.update();
   }
 }

@@ -18,13 +18,14 @@ const sketch = (
     p5.createCanvas(width, height);
 
     world = new World(p5, width, height, {
-      // shipViewHitbox: true,
+      viewFrameRate: true,
+      shipViewHitbox: true,
+      shipViewEnginesOn: true,
     });
   };
 
   p5.draw = () => {
     p5.background(20);
-    p5.translate(p5.width / 2, p5.height / 2);
 
     world.update();
   };
