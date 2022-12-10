@@ -14,6 +14,7 @@ class Ship {
     this.vel = this.p5.createVector();
     this.acc = this.p5.createVector();
     this.dampening = 0.95;
+    this.maxSpeed = 1;
 
     this.heading = 0;
     this.rotation = 0;
@@ -52,7 +53,7 @@ class Ship {
     else this.speed *= this.dampening;
 
     this.heading += this.rotation * this.rotateSpeed;
-    this.vel.add(this.acc);
+    this.vel.add(this.acc).limit(this.maxSpeed);
     this.pos.add(this.vel);
     this.acc.mult(0);
 

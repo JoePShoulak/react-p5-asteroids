@@ -21,6 +21,20 @@ const display = (
     p5.pop();
   },
 
+  target: (pos, size) => {
+    p5.push();
+    p5.noStroke();
+    p5.fill("red");
+    p5.circle(pos.x, pos.y, size * 2);
+    p5.fill("white");
+    p5.circle(pos.x, pos.y, (size * 3) / 2);
+    p5.fill("red");
+    p5.circle(pos.x, pos.y, size);
+    p5.fill("white");
+    p5.circle(pos.x, pos.y, size / 2);
+    p5.pop();
+  },
+
   /* == SHIP == */
   ship: (ship) => {
     p5.push();

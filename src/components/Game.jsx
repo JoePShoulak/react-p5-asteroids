@@ -1,5 +1,6 @@
 import React from "react";
 import { ReactP5Wrapper } from "react-p5-wrapper";
+import Asteroid from "./gameLibrary/Asteroid";
 import World from "./gameLibrary/World";
 
 const sketch = (
@@ -7,6 +8,8 @@ const sketch = (
   p5
 ) => {
   let world;
+
+  let asteroids = [];
 
   const width = 600;
   const height = 400;
@@ -22,12 +25,16 @@ const sketch = (
       shipViewHitbox: true,
       shipViewEnginesOn: true,
     });
+
+    asteroids.push(new Asteroid(world));
   };
 
   p5.draw = () => {
     p5.background(20);
 
     world.update();
+
+    asteroids.forEach((a) => a.draw());
   };
 };
 
