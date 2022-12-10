@@ -35,6 +35,18 @@ class Ship {
     this.acc.add(force);
   }
 
+  wrap() {
+    if (this.pos.x + this.size < -this.world.width / 2)
+      this.pos.x += this.world.width;
+    else if (this.pos.x - this.size > this.world.width / 2)
+      this.pos.x -= this.world.width;
+
+    if (this.pos.y + this.size < -this.world.height / 2)
+      this.pos.y += this.world.height;
+    else if (this.pos.y - this.size > this.world.height / 2)
+      this.pos.y -= this.world.height;
+  }
+
   update() {
     if (this.enginesOn) this.applyForce(this.boostForce);
     else this.speed *= this.dampening;
@@ -43,6 +55,8 @@ class Ship {
     this.vel.add(this.acc);
     this.pos.add(this.vel);
     this.acc.mult(0);
+
+    this.wrap();
 
     this.draw();
   }
