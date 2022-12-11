@@ -66,6 +66,21 @@ const display = (
     p5.pop();
   },
 
+  shipHeading: (ship) => {
+    p5.push();
+    const a = ship.heading;
+    const r = 50;
+    const end = p5.createVector(r * p5.cos(a), r * p5.sin(a));
+    p5.translate(ship.pos);
+    p5.stroke("green");
+    p5.fill("green");
+    p5.line(0, 0, end.x, end.y);
+    p5.translate(end);
+    p5.rotate(a + p5.HALF_PI);
+    display(p5).arrow(5);
+    p5.pop();
+  },
+
   shipEnginesOn: (ship) => {
     const offset = 20;
     p5.push();

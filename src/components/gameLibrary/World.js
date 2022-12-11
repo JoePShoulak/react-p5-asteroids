@@ -13,20 +13,24 @@ class World {
       // Ship
       shipViewHitbox,
       shipViewEnginesOn,
+      shipViewHeading,
     } = {}
   ) {
     /** @type {import("p5").p5InstanceExtensions} */
     this.p5 = p5;
     this.width = width;
     this.height = height;
+    this.bgColor = 20;
 
     this.ship = new Ship(this);
+    this.asteroids = [];
 
     // World
     this.viewFrameRate = viewFrameRate ?? false;
     // Ship
     if (shipViewHitbox) Ship.viewHitbox = true;
     if (shipViewEnginesOn) Ship.viewEnginesOn = true;
+    if (shipViewHeading) Ship.viewHeading = true;
   }
 
   offscreen(obj) {
@@ -58,12 +62,15 @@ class World {
   }
 
   update() {
+    this.p5.background(this.bgColor);
+
     if (this.viewFrameRate) display(this.p5).frameRate();
     if (Ship.viewEnginesOn) display(this.p5).shipEnginesOn(this.ship);
 
     this.p5.translate(this.p5.width / 2, this.p5.height / 2);
 
     this.ship.update();
+    this.asteroids.forEach((a) => a.update());
   }
 }
 

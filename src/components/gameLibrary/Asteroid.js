@@ -10,8 +10,14 @@ class Asteroid {
     this.pos = this.p5.createVector();
   }
 
+  update() {
+    this.draw();
+  }
+
   draw() {
-    display(this.p5).target(this.pos, this.size);
+    const d = display(this.p5);
+
+    d.target(this.pos, this.size);
   }
 }
 

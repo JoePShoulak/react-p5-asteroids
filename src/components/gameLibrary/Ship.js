@@ -3,6 +3,7 @@ import display from "./display";
 class Ship {
   static viewHitbox = false;
   static viewEnginesOn = false;
+  static viewHeading = false;
 
   constructor(world) {
     this.world = world;
@@ -13,7 +14,7 @@ class Ship {
     this.pos = this.p5.createVector();
     this.vel = this.p5.createVector();
     this.acc = this.p5.createVector();
-    this.dampening = 0.95;
+    this.dampening = 0.995;
     this.maxSpeed = 1;
 
     this.heading = 0;
@@ -25,7 +26,8 @@ class Ship {
 
   get boostForce() {
     const a = this.heading;
-    return this.p5.createVector(Math.cos(a), Math.sin(a)).mult(0.01);
+    const forceFactor = 0.01;
+    return this.p5.createVector(Math.cos(a), Math.sin(a)).mult(forceFactor);
   }
 
   rotate(direction) {
@@ -50,10 +52,10 @@ class Ship {
 
   update() {
     if (this.enginesOn) this.applyForce(this.boostForce);
-    else this.speed *= this.dampening;
 
     this.heading += this.rotation * this.rotateSpeed;
     this.vel.add(this.acc).limit(this.maxSpeed);
+    if (!this.enginesOn) this.vel.mult(this.dampening);
     this.pos.add(this.vel);
     this.acc.mult(0);
 
@@ -63,9 +65,12 @@ class Ship {
   }
 
   draw() {
-    display(this.p5).ship(this);
+    const d = display(this.p5);
 
-    if (Ship.viewHitbox) display(this.p5).shipHitbox(this);
+    d.ship(this);
+
+    if (Ship.viewHitbox) d.shipHitbox(this);
+    if (Ship.viewHeading) d.shipHeading(this);
   }
 }
 

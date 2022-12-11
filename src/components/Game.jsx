@@ -9,8 +9,6 @@ const sketch = (
 ) => {
   let world;
 
-  let asteroids = [];
-
   const width = 600;
   const height = 400;
 
@@ -24,18 +22,15 @@ const sketch = (
       viewFrameRate: true,
       shipViewHitbox: true,
       shipViewEnginesOn: true,
+      shipViewHeading: true,
     });
 
-    asteroids.push(new Asteroid(world));
+    const a = new Asteroid(world);
+    a.pos = p5.createVector(200, 100);
+    world.asteroids.push(a);
   };
 
-  p5.draw = () => {
-    p5.background(20);
-
-    world.update();
-
-    asteroids.forEach((a) => a.draw());
-  };
+  p5.draw = () => world.update();
 };
 
 const Game = () => <ReactP5Wrapper sketch={sketch} />;
