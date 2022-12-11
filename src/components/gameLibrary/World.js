@@ -13,7 +13,8 @@ class World {
       // Ship
       shipViewHitbox,
       shipViewEnginesOn,
-      shipViewHeading,
+      shipViewVelocity,
+      shipViewAcceleration,
     } = {}
   ) {
     /** @type {import("p5").p5InstanceExtensions} */
@@ -30,7 +31,8 @@ class World {
     // Ship
     if (shipViewHitbox) Ship.viewHitbox = true;
     if (shipViewEnginesOn) Ship.viewEnginesOn = true;
-    if (shipViewHeading) Ship.viewHeading = true;
+    if (shipViewVelocity) Ship.viewVelocity = true;
+    if (shipViewAcceleration) Ship.viewAcceleration = true;
   }
 
   offscreen(obj) {

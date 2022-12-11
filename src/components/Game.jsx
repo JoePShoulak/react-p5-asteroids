@@ -22,7 +22,8 @@ const sketch = (
       viewFrameRate: true,
       shipViewHitbox: true,
       shipViewEnginesOn: true,
-      shipViewHeading: true,
+      shipViewVelocity: true,
+      shipViewAcceleration: true,
     });
 
     const a = new Asteroid(world);

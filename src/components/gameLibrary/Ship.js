@@ -3,7 +3,8 @@ import display from "./display";
 class Ship {
   static viewHitbox = false;
   static viewEnginesOn = false;
-  static viewHeading = false;
+  static viewVelocity = false;
+  static viewAcceleration;
 
   constructor(world) {
     this.world = world;
@@ -57,11 +58,12 @@ class Ship {
     this.vel.add(this.acc).limit(this.maxSpeed);
     if (!this.enginesOn) this.vel.mult(this.dampening);
     this.pos.add(this.vel);
-    this.acc.mult(0);
 
     this.wrap();
 
     this.draw();
+
+    this.acc.mult(0);
   }
 
   draw() {
@@ -70,7 +72,8 @@ class Ship {
     d.ship(this);
 
     if (Ship.viewHitbox) d.shipHitbox(this);
-    if (Ship.viewHeading) d.shipHeading(this);
+    if (Ship.viewVelocity) d.velocity(this);
+    if (Ship.viewAcceleration) d.acceleration(this);
   }
 }
 
