@@ -1,6 +1,10 @@
 import display from "./display";
 
 class Asteroid {
+  static viewHitbox = false;
+  static viewVelocity = false;
+  static viewAcceleration = false;
+
   constructor(world) {
     this.world = world;
     /** @type {import("p5").p5InstanceExtensions} */

@@ -61,6 +61,15 @@ const display = (
       p5.pop();
     },
 
+    hitbox: ({ pos, size }) => {
+      p5.push();
+      p5.noFill();
+      p5.translate(pos);
+      p5.stroke("orange");
+      p5.circle(0, 0, size * 2);
+      p5.pop();
+    },
+
     /* == SHIP == */
     ship: (ship) => {
       p5.push();
@@ -80,27 +89,6 @@ const display = (
       p5.noStroke();
       p5.fill("red");
       p5.circle(0, (ship.size * 3) / 4, ship.size / 2);
-      p5.pop();
-    },
-
-    shipHitbox: (ship) => {
-      p5.push();
-      p5.noFill();
-      p5.translate(ship.pos);
-      p5.stroke("orange");
-      p5.circle(0, 0, ship.size * 2);
-      p5.pop();
-    },
-
-    shipEnginesOn: (ship) => {
-      p5.push();
-      p5.noStroke();
-      p5.fill("white");
-      p5.text(
-        `Ship: EnginesOn?: ${ship.enginesOn}`,
-        textOffset,
-        3 * p5.textSize()
-      );
       p5.pop();
     },
   };

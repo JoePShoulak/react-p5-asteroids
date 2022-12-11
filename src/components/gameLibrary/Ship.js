@@ -40,14 +40,11 @@ class Ship {
   }
 
   wrap() {
-    if (this.pos.x + this.size < -this.world.width / 2)
-      this.pos.x += this.world.width;
-    else if (this.pos.x - this.size > this.world.width / 2)
-      this.pos.x -= this.world.width;
+    if (this.pos.x < -this.world.width / 2) this.pos.x += this.world.width;
+    else if (this.pos.x > this.world.width / 2) this.pos.x -= this.world.width;
 
-    if (this.pos.y + this.size < -this.world.height / 2)
-      this.pos.y += this.world.height;
-    else if (this.pos.y - this.size > this.world.height / 2)
+    if (this.pos.y < -this.world.height / 2) this.pos.y += this.world.height;
+    else if (this.pos.y > this.world.height / 2)
       this.pos.y -= this.world.height;
   }
 
@@ -63,7 +60,7 @@ class Ship {
 
     this.draw();
 
-    this.acc.mult(0);
+    this.acc.mult(0); // This is at the bottom so we can draw the accVec
   }
 
   draw() {
@@ -71,7 +68,7 @@ class Ship {
 
     d.ship(this);
 
-    if (Ship.viewHitbox) d.shipHitbox(this);
+    if (Ship.viewHitbox) d.hitbox(this);
     if (Ship.viewVelocity) d.velocity(this);
     if (Ship.viewAcceleration) d.acceleration(this);
   }

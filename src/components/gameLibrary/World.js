@@ -1,6 +1,7 @@
+import Ship from "./Ship";
+import Asteroid from "./Asteroid";
 import display from "./display";
 import input from "./input";
-import Ship from "./Ship";
 
 class World {
   constructor(
@@ -12,9 +13,12 @@ class World {
       viewFrameRate,
       // Ship
       shipViewHitbox,
-      shipViewEnginesOn,
       shipViewVelocity,
       shipViewAcceleration,
+      // Asteroid
+      asteroidViewHitbox,
+      asteroidViewVelocity,
+      asteroidViewAcceleration,
     } = {}
   ) {
     /** @type {import("p5").p5InstanceExtensions} */
@@ -30,9 +34,12 @@ class World {
     this.viewFrameRate = viewFrameRate ?? false;
     // Ship
     if (shipViewHitbox) Ship.viewHitbox = true;
-    if (shipViewEnginesOn) Ship.viewEnginesOn = true;
     if (shipViewVelocity) Ship.viewVelocity = true;
     if (shipViewAcceleration) Ship.viewAcceleration = true;
+    // Asteroid
+    if (asteroidViewHitbox) Asteroid.viewHitbox = true;
+    if (asteroidViewVelocity) Asteroid.viewVelocity = true;
+    if (asteroidViewAcceleration) Asteroid.viewAcceleration = true;
   }
 
   offscreen(obj) {

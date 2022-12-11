@@ -21,7 +21,6 @@ const sketch = (
     world = new World(p5, width, height, {
       viewFrameRate: true,
       shipViewHitbox: true,
-      shipViewEnginesOn: true,
       shipViewVelocity: true,
       shipViewAcceleration: true,
     });
